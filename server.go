@@ -10,11 +10,19 @@ import (
 	"mywaf-admin/router"
 	"mywaf-admin/setting"
 	"net/http"
+	"runtime"
 )
 
 func init() {
+	runtime.GOMAXPROCS(runtime.NumCPU())
 	log.SetPrefix("[mywaf-admin]")
 	log.SetFlags(log.Lshortfile)
+	if setting.Mode == "prod" {
+		macaron.Env = macaron.PROD
+		macaron.ColorLog=false
+	} else {
+		macaron.Env = macaron.DEV
+	}
 }
 
 func main() {
@@ -44,15 +52,15 @@ func main() {
 			mywaf.Post("/edit/:Id", csrf.Validate, router.EditRuleDeal)
 			mywaf.Get("/del/:id", router.DeleteRule)
 			mywaf.Post("/add/", csrf.Validate, router.AddRuleDeal)
-			mywaf.Get("/sync/", router.SyncRule)
+			mywaf.Get("/sync/:ruleType", router.SyncRule)
 		})
 		mywaf.Group("/user", func() {
 			mywaf.Get("/list/", router.UserList)
-			mywaf.Get("/edit/:Id",router.EditUser)
-			mywaf.Post("/edit/:Id", csrf.Validate,router.EditUserDeal)
-			mywaf.Get("/del/:Id",router.DeleteUser)
-			mywaf.Get("/add/",router.AddUser)
-			mywaf.Post("/add/", csrf.Validate,router.AddUserDeal)
+			mywaf.Get("/edit/:Id", router.EditUser)
+			mywaf.Post("/edit/:Id", csrf.Validate, router.EditUserDeal)
+			mywaf.Get("/del/:Id", router.DeleteUser)
+			mywaf.Get("/add/", router.AddUser)
+			mywaf.Post("/add/", csrf.Validate, router.AddUserDeal)
 
 		})
 	}, router.SessionCheck)

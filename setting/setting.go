@@ -8,6 +8,8 @@ import (
 var (
 	//server
 	WebInfo string
+	Mode string
+	NginxBin string
 
 	//mysql
 	Host string
@@ -32,4 +34,7 @@ func init() {
 	Username=cfg.Section("mysql").Key("user").MustString("admin")
 	Password=cfg.Section("mysql").Key("pass").MustString("password")
 	RulePath=cfg.Section("mywaf").Key("rulePath").MustString("./rules")
+
+	Mode=cfg.Section("server").Key("mode").MustString("prod")
+	NginxBin=cfg.Section("server").Key("nginx_bin").MustString("/opt/openresty/nginx/sbin/nginx")
 }
