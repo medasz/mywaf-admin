@@ -9,7 +9,7 @@ yum install mariadb-server mariadb -y
 create database mywaf
 3. 创建用户并赋权给指定数据库
 grant all on mywaf.* to 'admin'@'localhost' identified by 'password';
-4. 下载最新的编译版本
+4. 下载最新的编译版本,第一个版本web服务只适用于linux系统
 5. 配置app.ini文件
 6. 运行
 7. 默认用户名/密码:admin/password
