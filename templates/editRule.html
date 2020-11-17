@@ -26,7 +26,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"><span>Mywaf</span>Admin</a>
+				<a class="navbar-brand" href="#"><span>mywaf</span>Admin</a>
 				<ul class="user-menu">
 					<li class="dropdown pull-right">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
@@ -39,6 +39,7 @@
 					</li>
 				</ul>
 			</div>
+							
 		</div><!-- /.container-fluid -->
 	</nav>
 		
@@ -55,11 +56,11 @@
 				</a>
 				<ul class="children collapse" id="sub-item-1">
 					{{range .rulesType}}
-					<li>
-						<a class="" href="/index/rule/{{.}}">
-							<span class="glyphicon glyphicon-share-alt"></span> {{.}}
-						</a>
-					</li>
+						<li>
+							<a class="" href="/index/rule/{{.}}">
+								<span class="glyphicon glyphicon-share-alt"></span> {{.}}
+							</a>
+						</li>
 					{{end}}
 				</ul>
 			</li>
@@ -68,68 +69,43 @@
 		<div class="attribution">Template by <a href="http://www.medialoot.com/item/lumino-admin-bootstrap-template/">Medialoot</a></div>
 	</div><!--/.sidebar-->
 		
-	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
 		<div class="row">
 			<ol class="breadcrumb">
 				<li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
-				<li class="active">Rules</li>
+				<li class="active">{{.ruleType}}</li>
 			</ol>
 		</div><!--/.row-->
-
+		
 		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">{{.ruleType}}</h1>
 			</div>
 		</div><!--/.row-->
-
+				
+		
 		<div class="row">
-			<div class="col-md-12">
-
-				<div class="panel panel-blue">
-					<div class="panel-heading dark-overlay"><span class="glyphicon glyphicon-check"></span>Rules</div>
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">Rule</div>
 					<div class="panel-body">
-						<ul class="todo-list">
-						<li class="todo-list-item">
-								<div class="checkbox">
-									<label for="checkbox">Id</label>
-								</div>
-								<div class="checkbox">
-									<label for="checkbox">rule</label>
-								</div>
-							</li>
-							{{range .rules}}
-							<li class="todo-list-item">
-								<div class="checkbox">
-									<label for="checkbox">{{.Id}}</label>
-								</div>
-								<div class="checkbox col-lg-offset-4">
-									<label for="checkbox">{{.RuleItem}}</label>
-								</div>
-								<div class="pull-right action-buttons">
-									<a href="/index/rule/edit/{{.Id}}"><span class="glyphicon glyphicon-pencil"></span></a>
-									<a href="/index/rule/del/{{.Id}}" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-								</div>
-							</li>
-							{{end}}
-						</ul>
-					</div>
-					<div class="panel-footer">
-						<form action="/index/rule/add/" method="post">
-							<div class="input-group">
+						<form class="col-md-12" action="/index/rule/edit/{{.Id}}" method="POST">
+							<div class="form-group">
 								<input type="hidden" name="_csrf" value="{{.csrf_token}}"/>
-								<input type="hidden" name="ruleType" value="{{.ruleType}}"/>
-								<input id="btn-input" type="text" class="form-control input-md" name="rule" placeholder="Add new rule" />
-								<span class="input-group-btn">
-								<button class="btn btn-primary btn-md" type="submit" id="btn-todo">添加</button>
-							</span>
+							</div>
+							<div class="form-group">
+								<textarea class="form-control" rows="3" name="rule">{{.rule}}</textarea>
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary">保存</button>
 							</div>
 						</form>
 					</div>
 				</div>
-
-			</div><!--/.col-->
-		</div><!--/.row-->
-	</div>	<!--/.main-->
+			</div><!-- /.col-->
+		</div><!-- /.row -->
+		
+	</div><!--/.main-->
 
 	<script src="/js/jquery-1.11.1.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
@@ -139,14 +115,11 @@
 	<script src="/js/easypiechart-data.js"></script>
 	<script src="/js/bootstrap-datepicker.js"></script>
 	<script>
-		$('#calendar').datepicker({
-		});
-
 		!function ($) {
-		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){          
-		        $(this).find('em:first').toggleClass("glyphicon-minus");      
-		    }); 
-		    $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
+				$(this).find('em:first').toggleClass("glyphicon-minus");	  
+			}); 
+			$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
 		}(window.jQuery);
 
 		$(window).on('resize', function () {

@@ -15,6 +15,9 @@ var (
 	Db string
 	Username string
 	Password string
+
+	//rules
+	RulePath string
 )
 
 func init() {
@@ -28,4 +31,5 @@ func init() {
 	Db=cfg.Section("mysql").Key("db").MustString("mywaf")
 	Username=cfg.Section("mysql").Key("user").MustString("admin")
 	Password=cfg.Section("mysql").Key("pass").MustString("password")
+	RulePath=cfg.Section("mywaf").Key("rulePath").MustString("./rules")
 }
