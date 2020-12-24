@@ -19,7 +19,7 @@ func init() {
 	log.SetFlags(log.Lshortfile)
 	if setting.Mode == "prod" {
 		macaron.Env = macaron.PROD
-		macaron.ColorLog=false
+		macaron.ColorLog = false
 	} else {
 		macaron.Env = macaron.DEV
 	}
@@ -63,8 +63,14 @@ func main() {
 			mywaf.Post("/add/", csrf.Validate, router.AddUserDeal)
 
 		})
+		mywaf.Group("/config", func() {
+			mywaf.Get("/list", router.GetWafConfig)
+			mywaf.Post("/update", router.UpdateWafConfig)
+		})
 	}, router.SessionCheck)
-
-	log.Println("mywaf-admin start...")
+	mywaf.Group("/json", func() {
+		mywaf.Get("/config", router.GetWafConfigJson)
+	})
+	log.Printf("mywaf-admin start:%s...\n", setting.WebInfo)
 	log.Println(http.ListenAndServe(setting.WebInfo, mywaf))
 }

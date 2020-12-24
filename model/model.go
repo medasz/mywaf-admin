@@ -15,7 +15,7 @@ var (
 
 func init() {
 	//连接mysql
-	url := fmt.Sprintf("%s:%s@(%s:%v)/%s", setting.Username, setting.Password, setting.Host, setting.Port, setting.Db)
+	url := fmt.Sprintf("%s:%s@(%s:%v)/%s?charset=utf8", setting.Username, setting.Password, setting.Host, setting.Port, setting.Db)
 	Engine, err = xorm.NewEngine("mysql", url)
 	if err != nil {
 		log.Panicln("Fail to connect mysql :", err)
@@ -35,7 +35,19 @@ func init() {
 	}
 	log.Println("success to create rule table!")
 
-	//检测user表记录是否存在
+	err = Engine.Sync2(new(Flag))
+	if err != nil {
+		log.Panicln("Fail to create flag table :", err)
+	}
+	log.Println("success to create flag table!")
+
+	err = Engine.Sync2(new(WafConfig))
+	if err != nil {
+		log.Panicln("Fail to create waf_config :",err)
+	}
+	log.Println("success to create waf_config table!")
+
+	//检测user表记录是否为空
 	has, err := Engine.IsTableEmpty(new(User))
 	if err != nil {
 		log.Panicln("Fail to isTableEmpty user :", err)
@@ -48,11 +60,11 @@ func init() {
 			log.Panicln("Fail to insert user admin/password :", err)
 		}
 		log.Println("Success to insert user admin/password!")
-	}else{
+	} else {
 		log.Println("user is not null!")
 	}
 
-	//检测rule表记录是否存在
+	//检测rule表记录是否为空
 	has, err = Engine.IsTableEmpty(new(Rule))
 	if err != nil {
 		log.Panicln("Fail to isTableEmpty rule :", err)
@@ -60,12 +72,38 @@ func init() {
 	log.Println("Success to isTableEmpty rule!")
 	if has {
 		log.Println("rule is null,insert rules")
-		err:=initRule()
-		if err!=nil{
-			log.Panicln("Fail to init rule :",err)
+		err := initRule()
+		if err != nil {
+			log.Panicln("Fail to init rule :", err)
 		}
 		log.Println("Success to init rule!")
-	}else {
+	} else {
 		log.Println("rule is not null!")
+	}
+
+	//检测flag表是否为空
+	has,err=Engine.IsTableEmpty(new(Flag))
+	if has{
+		log.Println("flag is null,insert flag")
+		err:=initFlag()
+		if err!=nil{
+			log.Panicln("Fail to init flag :",err)
+		}
+		log.Println("success to init flag!")
+	}else{
+		log.Println("flag is not null!")
+	}
+
+	//检测waf_config表是否为空
+	has,err=Engine.IsTableEmpty(new(WafConfig))
+	if has{
+		log.Println("waf_config is null,insert waf config")
+		err:=initWafConfig()
+		if err!=nil{
+			log.Panicln("Fail to init waf_config :",err)
+		}
+		log.Println("success to init waf_config!")
+	}else{
+		log.Println("waf_config is not null!")
 	}
 }
