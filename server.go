@@ -52,7 +52,7 @@ func main() {
 			mywaf.Post("/edit/:Id", csrf.Validate, router.EditRuleDeal)
 			mywaf.Get("/del/:id", router.DeleteRule)
 			mywaf.Post("/add/", csrf.Validate, router.AddRuleDeal)
-			mywaf.Get("/sync/:ruleType", router.SyncRule)
+			//mywaf.Get("/sync/:ruleType", router.SyncRule)
 		})
 		mywaf.Group("/user", func() {
 			mywaf.Get("/list/", router.UserList)
@@ -70,6 +70,7 @@ func main() {
 	}, router.SessionCheck)
 	mywaf.Group("/json", func() {
 		mywaf.Get("/config", router.GetWafConfigJson)
+		mywaf.Get("/rule",router.GetRuleJson)
 	})
 	log.Printf("mywaf-admin start:%s...\n", setting.WebInfo)
 	log.Println(http.ListenAndServe(setting.WebInfo, mywaf))

@@ -19,6 +19,7 @@ func GetWafConfig(ctx *macaron.Context) {
 		tmp[v.Type] = append(tmp[v.Type], v)
 	}
 	ctx.Data["wafConfig"] = tmp
+	ctx.Data["rulesType"] = model.RuleInfo
 	ctx.HTML(200, "config")
 }
 

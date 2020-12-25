@@ -4,8 +4,9 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
-	"mywaf-admin/setting"
 	"mywaf-admin/utils"
+	"os"
+	"path"
 )
 
 type Rule struct {
@@ -14,7 +15,7 @@ type Rule struct {
 	RuleType string `xorm:"not null"`
 }
 
-var RuleInfo =[]string{
+var RuleInfo = []string{
 	"black_cookie",
 	"black_file_ext",
 	"black_get_args",
@@ -28,7 +29,12 @@ var RuleInfo =[]string{
 
 //初始化数据库rule表
 func initRule() error {
-	fileList, err := utils.FileList(setting.RulePath)
+	place, err := os.Getwd()
+	if err != nil {
+		return err
+	}
+	place = path.Join(place, "rules")
+	fileList, err := utils.FileList(place) //setting.RulePath)
 	if err != nil {
 		return err
 	}
@@ -50,9 +56,9 @@ func NewRule(ruleItem, ruleType string) error {
 }
 
 //删除规则
-func DeleteRule(id int64) error {
-	_,err:=Engine.Delete(&Rule{Id: id})
-	return err
+func DeleteRule(id int64) (int64, error) {
+	n, err := Engine.Delete(&Rule{Id: id})
+	return n, err
 }
 
 //获取所有规则
@@ -67,29 +73,29 @@ func GetAllRule() ([]Rule, error) {
 }
 
 //根据ruleType获取rule
-func GetRule(ruleType string)([]Rule,error){
-	rules:=[]Rule{}
-	err:=Engine.Table("rule").Where("rule_type=?",ruleType).Find(&rules)
-	return rules,err
+func GetRule(ruleType string) ([]Rule, error) {
+	rules := []Rule{}
+	err := Engine.Table("rule").Where("rule_type=?", ruleType).Find(&rules)
+	return rules, err
 }
 
 //根据id获取rule
-func GetRuleById(id int64)(Rule,error){
-	rule:=Rule{Id: id}
-	_,err:=Engine.Get(&rule)
-	return rule,err
+func GetRuleById(id int64) (Rule, error) {
+	rule := Rule{Id: id}
+	_, err := Engine.Get(&rule)
+	return rule, err
 }
 
 //添加rule
-func AddRule(rule,ruleType string)error{
-	_,err:=Engine.Insert(&Rule{RuleItem: rule,RuleType: ruleType})
-	return err
+func AddRule(rule, ruleType string) (int64, error) {
+	n, err := Engine.Insert(&Rule{RuleItem: rule, RuleType: ruleType})
+	return n, err
 }
 
 //根据id更新rule
-func UpdateRuleById(id int64,rule string)error{
-	_,err:=Engine.ID(id).Update(&Rule{RuleItem: rule})
-	return err
+func UpdateRuleById(id int64, rule string) (int64, error) {
+	n, err := Engine.ID(id).Update(&Rule{RuleItem: rule})
+	return n, err
 }
 
 //获取所有规则类型

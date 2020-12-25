@@ -26,7 +26,7 @@ func FileList(place string)([]string,error){
 	filesList:=[]string{}
 	for _,fileInfo:=range filesInfo{
 		if !fileInfo.IsDir(){
-			filePath:=path.Join(setting.RulePath,fileInfo.Name())
+			filePath:=path.Join(place,fileInfo.Name())//setting.RulePath,fileInfo.Name())
 			filesList=append(filesList,filePath)
 		}
 	}

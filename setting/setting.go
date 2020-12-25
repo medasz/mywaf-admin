@@ -19,7 +19,7 @@ var (
 	Password string
 
 	//rules
-	RulePath string
+	//RulePath string
 )
 
 func init() {
@@ -33,7 +33,7 @@ func init() {
 	Db=cfg.Section("mysql").Key("db").MustString("mywaf")
 	Username=cfg.Section("mysql").Key("user").MustString("admin")
 	Password=cfg.Section("mysql").Key("pass").MustString("password")
-	RulePath=cfg.Section("mywaf").Key("rulePath").MustString("./rules")
+	//RulePath=cfg.Section("mywaf").Key("rulePath").MustString("./rules")
 
 	Mode=cfg.Section("server").Key("mode").MustString("prod")
 	NginxBin=cfg.Section("server").Key("nginx_bin").MustString("/opt/openresty/nginx/sbin/nginx")
