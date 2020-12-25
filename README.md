@@ -19,3 +19,5 @@ grant all on mywaf.* to 'admin'@'localhost' identified by 'password';
 ```shell script
 根据实际情况修改app.ini中的配置信息
 ```
+# changed
+1. 添加web界面配置
