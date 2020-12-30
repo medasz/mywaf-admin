@@ -23,3 +23,5 @@ grant all on mywaf.* to 'admin'@'localhost' identified by 'password';
 1. 添加web界面配置
 2. 提供配置接口
 3. 提供规则接口
+4. 提供日志接收和发送接口
+5. 添加展示界面
