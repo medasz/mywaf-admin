@@ -67,10 +67,15 @@ func main() {
 			mywaf.Get("/list", router.GetWafConfig)
 			mywaf.Post("/update", router.UpdateWafConfig)
 		})
+		mywaf.Group("/dashboard", func() {
+			mywaf.Get("/show", router.Dashboard)
+		})
 	}, router.SessionCheck)
 	mywaf.Group("/json", func() {
 		mywaf.Get("/config", router.GetWafConfigJson)
-		mywaf.Get("/rule",router.GetRuleJson)
+		mywaf.Get("/rule", router.GetRuleJson)
+		mywaf.Post("/log", router.SaveLog)
+		mywaf.Get("/log", router.GetLog)
 	})
 	log.Printf("mywaf-admin start:%s...\n", setting.WebInfo)
 	log.Println(http.ListenAndServe(setting.WebInfo, mywaf))

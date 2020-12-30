@@ -29,18 +29,18 @@ func DeleteRule(ctx *macaron.Context, sess session.Store) {
 	ruleType := sess.Get("ruleType")
 	sess.Delete("ruleType")
 	id := ctx.ParamsInt64(":id")
-	n,err := model.DeleteRule(id)
+	n, err := model.DeleteRule(id)
 	if err != nil {
 		log.Println("Fail to delete rule :", err)
 		ErrorMsg(ctx, "删除规则失败!")
 	}
-	if n>0{
+	if n > 0 {
 		err := model.UpdataFlag("rule")
 		if err != nil {
 			log.Println(err)
 			//ErrorMsg(ctx, "更新uuid出错!")
 			//return
-			ErrorMsg(ctx,"更新uuid出错!")
+			ErrorMsg(ctx, "更新uuid出错!")
 		}
 	}
 	ctx.Redirect(fmt.Sprintf("/index/rule/%s", ruleType))
@@ -52,18 +52,18 @@ func EditRuleDeal(ctx *macaron.Context, sess session.Store) {
 	id := ctx.ParamsInt64(":Id")
 	rule := ctx.Req.FormValue("rule")
 	log.Printf("rule:%s;id:%v", rule, id)
-	n,err := model.UpdateRuleById(id, rule)
+	n, err := model.UpdateRuleById(id, rule)
 	if err != nil {
 		log.Printf("更新规则失败! id:%v;rule:%s :%s", id, rule, err)
 		ErrorMsg(ctx, "更新规则失败!")
 	}
-	if n>0{
+	if n > 0 {
 		err := model.UpdataFlag("rule")
 		if err != nil {
 			log.Println(err)
 			//ErrorMsg(ctx, "更新uuid出错!")
 			//return
-			ErrorMsg(ctx,"更新uuid出错!")
+			ErrorMsg(ctx, "更新uuid出错!")
 		}
 	}
 	ctx.Redirect(fmt.Sprintf("/index/rule/%s", ruleType))
@@ -73,18 +73,18 @@ func AddRuleDeal(ctx *macaron.Context) {
 	rule := ctx.Req.PostForm.Get("rule")
 	ruleType := ctx.Req.PostForm.Get("ruleType")
 	log.Printf("rule:%s;ruleType:%s", rule, ruleType)
-	n,err := model.AddRule(rule, ruleType)
+	n, err := model.AddRule(rule, ruleType)
 	if err != nil {
 		log.Printf("Fail to insert rule{RuleItem:%s,RuleType:%s}", rule, ruleType)
 		ErrorMsg(ctx, "添加规则失败!")
 	}
-	if n>0{
+	if n > 0 {
 		err := model.UpdataFlag("rule")
 		if err != nil {
 			log.Println(err)
 			//ErrorMsg(ctx, "更新uuid出错!")
 			//return
-			ErrorMsg(ctx,"更新uuid出错!")
+			ErrorMsg(ctx, "更新uuid出错!")
 		}
 	}
 	ctx.Redirect(fmt.Sprintf("/index/rule/%s", ruleType))
@@ -142,7 +142,7 @@ func GetRuleJson(ctx *macaron.Context) {
 	resData.Uuid, err = model.GetFlag("rule")
 	if err != nil {
 		log.Println(err)
-		resData.Result= "false"
+		resData.Result = "false"
 		ctx.JSON(200, resData)
 	}
 	ctx.JSON(200, resData)

@@ -47,6 +47,13 @@ func init() {
 	}
 	log.Println("success to create waf_config table!")
 
+
+	err = Engine.Sync2(new(WafLog))
+	if err != nil {
+		log.Panicln("Fail to create waf_log table :", err)
+	}
+	log.Println("success to create waf_log table!")
+
 	//检测user表记录是否为空
 	has, err := Engine.IsTableEmpty(new(User))
 	if err != nil {
