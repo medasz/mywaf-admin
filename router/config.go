@@ -44,7 +44,7 @@ func UpdateWafConfig(ctx *macaron.Context)string{
 	updateFormData := []updateForm{}
 	err = json.Unmarshal(data, &updateFormData)
 	if err != nil {
-		println(string(data))
+		//println(string(data))
 		log.Println(err)
 		//ErrorMsg(ctx, "提交数据出错!")
 		//return
