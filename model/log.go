@@ -40,7 +40,7 @@ func GetAttackLogCount() (int, error) {
 }
 
 func GetAllLogToday() (data []WafLog, err error) {
-	curDay := time.Now().Format("2006-01-02*")
+	curDay := time.Now().Format("2006-01-02")
 	err = Engine.Where("local_time REGEXP ?", curDay).Find(&data)
 	if err != nil {
 		return nil, err

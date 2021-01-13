@@ -25,7 +25,7 @@ func LoginHtml(ctx *macaron.Context,x csrf.CSRF) {
 
 //用户登录
 func LoginDeal(ctx *macaron.Context, cpt *captcha.Captcha, sess session.Store) {
-	//if cpt.VerifyReq(ctx.Req) {
+	if cpt.VerifyReq(ctx.Req) {
 		username := ctx.Req.Form.Get("username")
 		password := ctx.Req.Form.Get("password")
 		password = utils.Encryption(password)
@@ -40,9 +40,9 @@ func LoginDeal(ctx *macaron.Context, cpt *captcha.Captcha, sess session.Store) {
 		}else{
 			ErrorMsg(ctx,"用户名或密码错误!")
 		}
-	//} else {
-	//	ErrorMsg(ctx,"验证码错误")
-	//}
+	} else {
+		ErrorMsg(ctx,"验证码错误")
+	}
 }
 
 //返回index页面
