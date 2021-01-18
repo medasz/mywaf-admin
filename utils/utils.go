@@ -4,10 +4,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"io/ioutil"
-	"log"
-	"mywaf-admin/setting"
 	"os"
-	"os/exec"
 	"path"
 )
 
@@ -48,16 +45,16 @@ func OverFile(content []byte,filepath string) error {
 }
 
 //重载nginx
-func ReloadRule() error {
-	output,err:=exec.Command(setting.NginxBin,"-t").Output()
-	if err!=nil{
-		log.Println(output,err)
-		return err
-	}
-	output,err=exec.Command(setting.NginxBin,"-s","reload").Output()
-	if err!=nil{
-		log.Println(output,err)
-		return err
-	}
-	return nil
-}
+//func ReloadRule() error {
+//	output,err:=exec.Command(setting.NginxBin,"-t").Output()
+//	if err!=nil{
+//		log.Println(output,err)
+//		return err
+//	}
+//	output,err=exec.Command(setting.NginxBin,"-s","reload").Output()
+//	if err!=nil{
+//		log.Println(output,err)
+//		return err
+//	}
+//	return nil
+//}

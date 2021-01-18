@@ -26,3 +26,4 @@ grant all on mywaf.* to 'admin'@'localhost' identified by 'password';
 4. 提供日志接收和发送接口
 5. 添加展示界面
 6. 修复获取当天日志中参杂其他日志的bug
+7. 删除了与openresty通信的接口

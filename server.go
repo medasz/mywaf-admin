@@ -72,9 +72,9 @@ func main() {
 		})
 	}, router.SessionCheck)
 	mywaf.Group("/json", func() {
-		mywaf.Get("/config", router.GetWafConfigJson)
-		mywaf.Get("/rule", router.GetRuleJson)
-		mywaf.Post("/log", router.SaveLog)
+		//mywaf.Get("/config", router.GetWafConfigJson)
+		//mywaf.Get("/rule", router.GetRuleJson)
+		//mywaf.Post("/log", router.SaveLog)
 		mywaf.Get("/log", router.GetLog)
 	})
 	log.Printf("mywaf-admin start:%s...\n", setting.WebInfo)

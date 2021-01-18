@@ -9,7 +9,7 @@ var (
 	//server
 	WebInfo string
 	Mode string
-	NginxBin string
+	//NginxBin string
 
 	//mysql
 	Host string
@@ -36,5 +36,5 @@ func init() {
 	//RulePath=cfg.Section("mywaf").Key("rulePath").MustString("./rules")
 
 	Mode=cfg.Section("server").Key("mode").MustString("prod")
-	NginxBin=cfg.Section("server").Key("nginx_bin").MustString("/opt/openresty/nginx/sbin/nginx")
+	//NginxBin=cfg.Section("server").Key("nginx_bin").MustString("/opt/openresty/nginx/sbin/nginx")
 }

@@ -16,19 +16,7 @@ var wafConfigInit = []*WafConfig{
 		Value:   "on",
 		NameKey: "config_waf_status",
 		Button:  true,
-	}, {
-		Type:    "waf",
-		Name:    "waf规则目录",
-		Value:   "/opt/openresty/nginx/conf/mywaf/rules",
-		NameKey: "config_rule_dir",
-		Button:  false,
-	}, {
-		Type:    "waf",
-		Name:    "waf日志记录目录",
-		Value:   "/tmp",
-		NameKey: "config_log_dir",
-		Button:  false,
-	}, {
+	},  {
 		Type:    "waf",
 		Name:    "waf拦截模式(redirect/html)",
 		Value:   "html",

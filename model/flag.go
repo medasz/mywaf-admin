@@ -2,7 +2,6 @@ package model
 
 import (
 	uuid "github.com/satori/go.uuid"
-	"log"
 )
 
 type Flag struct {
@@ -22,7 +21,6 @@ func initFlag() error {
 }
 
 func UpdataFlag(name string) error {
-	log.Println(name)
 	_, err := Engine.Cols("uuid").Update(&Flag{Uuid: uuid.NewV4().String()},&Flag{Name: name})
 	return err
 }
