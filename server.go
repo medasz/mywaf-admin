@@ -78,5 +78,5 @@ func main() {
 		mywaf.Get("/log", router.GetLog)
 	})
 	log.Printf("mywaf-admin start:%s...\n", setting.WebInfo)
-	log.Println(http.ListenAndServe(setting.WebInfo, mywaf))
+	log.Println(http.ListenAndServeTLS(setting.WebInfo, "server.pem", "server.key", mywaf))
 }
