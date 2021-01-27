@@ -6,6 +6,7 @@ import (
 )
 
 type WafLog struct {
+	Host         string    `json:"host"`
 	Rule         string    `json:"rule"`
 	ClientIp     string    `json:"client_ip"`
 	AttackType   string    `json:"attack_type"`
@@ -16,7 +17,6 @@ type WafLog struct {
 	LocalTime    string    `json:"local_time"`
 	LocalTimeObj time.Time `json:"local_time_obj"`
 }
-
 
 func InsertLog(data WafLog) error {
 	_, err := Engine.InsertOne(&data)

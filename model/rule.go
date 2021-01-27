@@ -11,8 +11,8 @@ import (
 
 type Rule struct {
 	Id       int64
-	RuleItem string `xorm:"not null"`
-	RuleType string `xorm:"not null"`
+	RuleItem string `xorm:"not null unique(rule)"`
+	RuleType string `xorm:"not null unique(rule)"`
 }
 
 var RuleInfo = []string{

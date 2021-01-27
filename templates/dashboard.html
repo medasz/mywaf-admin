@@ -8,8 +8,10 @@
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 <link href="/css/datepicker3.css" rel="stylesheet">
 <link href="/css/styles.css" rel="stylesheet">
+<link href="css/bootstrap-table.css" rel="stylesheet">
 
-<!--[if lt IE 9]>
+
+	<!--[if lt IE 9]>
 <script src="/js/html5shiv.js"></script>
 <script src="/js/respond.min.js"></script>
 <![endif]-->
@@ -138,7 +140,49 @@
 			</div>
 		</div><!--/.row-->
 
-
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">排名靠前的事件</div>
+					<div class="panel-body">
+						<select name="type" id="type_id">
+							<option value="client_ip">远程IP地址</option>
+							<option value="host">域名</option>
+							<option value="req_uri">URL</option>
+						</select>
+						<select name="order" id="order_id">
+							<option value="desc" selected>降序</option>
+							<option value="asc">升序</option>
+						</select>
+						<input type="text" id="topN" class="input-prepend" placeholder="输入top条数,默认为10" value="10"/>
+						<button type="submit" class="btn btn-success" id="checkRes">查询</button>
+						<button type="button" class="btn btn-danger" id="exportRes">导出</button>
+					</div>
+					<div class="panel-body">
+						<table id="table" data-toggle="table" data-url="a.json">
+							<thead>
+							<tr>
+								<th>Item ID</th>
+								<th>Item Name</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td>1</td>
+								<td>Item 1</td>
+								<td>$1</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Item 2</td>
+								<td>$2</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div><!--/.row-->
 
 		<div class="row">
 			<div class="col-md-12">
@@ -208,6 +252,7 @@
 	<script src="/js/easypiechart.js"></script>
 	<script src="/js/easypiechart-data.js"></script>
 	<script src="/js/bootstrap-datepicker.js"></script>
+	<script src="/js/bootstrap-table.js"></script>
 	<script>
 		$('#calendar').datepicker({
 		});
@@ -292,6 +337,20 @@
 			//var content='<div class="chat-body"><p>'+value+'</p></div>';
 			tmp.innerText=value;
 			$("#logList").append(tmp);
+		})
+	</script>
+	<script>
+		$("#checkRes").click(function () {
+			type=$("#type_id").val();
+			order=$("#order_id").val();
+			topN=$("#topN").val();
+			$.ajax({
+				url: "",
+				data:{},
+			})
+		})
+		$("#exportRes").click(function () {
+
 		})
 	</script>
 </body>

@@ -29,6 +29,18 @@ var wafConfigInit = []*WafConfig{
 		NameKey: "config_redirect_uri",
 		Button:  false,
 	}, {
+		Type:    "waf",
+		Name:    "waf更新规则配置周期",
+		Value:   "10",
+		NameKey: "config_update_cycle",
+		Button:  false,
+	}, {
+		Type:    "waf",
+		Name:    "waf加载规则配置周期",
+		Value:   "10",
+		NameKey: "config_reload_cycle",
+		Button:  false,
+	}, {
 		Type: "waf",
 		Name: "waf拦截返回页面",
 		Value: `<html>
@@ -116,6 +128,12 @@ var wafConfigInit = []*WafConfig{
 		Value:   "10/60",
 		NameKey: "config_cc_rate",
 		Button:  false,
+	},{
+		Type: "cc",
+		Name: "自动封禁ip开关",
+		Value: "on",
+		NameKey: "config_cc_black_ip",
+		Button: true,
 	},
 }
 
